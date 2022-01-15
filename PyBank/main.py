@@ -1,5 +1,3 @@
-from cgitb import text
-from inspect import ClosureVars
 import os
 import csv
 import pathlib
