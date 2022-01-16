@@ -1,10 +1,9 @@
 import os
 import csv
 import pathlib
+import statistics
 
 budget_path = os.path.join(pathlib.Path(__file__).parent.resolve(), 'Resources','budget_data.csv' )
-
-#print(budget_csv_path)
 
 
 #reads through the csv file and creates a list of the values in the Profits/Losses column
@@ -68,15 +67,20 @@ while x < months:
 
 #calculates the average change across months in our list of changes
 #and rounds to 2 decimal places
-average_change = round(sum(profit_changes) / len(profit_changes),2)
+
+#if you import statistics, you can use this to find the mean
+average_change = round(statistics.mean(profit_changes),2)
+
+#this can be used to manually calculate the mean if statistics hasn't been imported
+#average_change = round(sum(profit_changes) / len(profit_changes),2)
 
 output_path = os.path.join(pathlib.Path(__file__).parent.resolve(), "analysis", "analysis.txt" )
 
 output_line_1 = "Total Months: " + str(months)
 output_line_2 = "Total: $" + str(total_profit)
 output_line_3 = "Average Change: " + str(average_change)
-output_line_4 = "Greatest Increase in Profits: " + str(largest_increase) + " " + str(largest_increase_month)
-output_line_5 = "Greatest Decrease in Profits: " + str(largest_decrease) + " " + str(largest_decrease_month)
+output_line_4 = "Greatest Increase in Profits: " + str(largest_increase_month) + " ($" + str(largest_increase) + ")"
+output_line_5 = "Greatest Decrease in Profits: " + str(largest_decrease_month) + " ($" + str(largest_decrease) + ")"
 
 full_output = ["Financial Analysis", "", output_line_1, output_line_2, output_line_3, output_line_4, output_line_5]
 
